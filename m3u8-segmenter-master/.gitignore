@@ -1,0 +1,17 @@
+m3u8-segmenter
+tests/tmp
+debian/files
+debian/m3u8-segmenter.debhelper.log
+debian/m3u8-segmenter.substvars
+
+tests/ffmpeg/
+
+.deps/
+Makefile
+config.log
+config.status
+tests/Makefile
+
+m3u8-segmenter-*.tar.gz
+
+ts_decode/
