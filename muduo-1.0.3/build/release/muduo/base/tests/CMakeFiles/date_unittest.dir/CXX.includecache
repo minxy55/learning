@@ -1,0 +1,36 @@
+#IncludeRegexLine: ^[ 	]*#[ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+../../muduo/base/Date.h
+muduo/base/copyable.h
+-
+muduo/base/Types.h
+-
+
+../../muduo/base/Types.h
+stdint.h
+-
+string
+-
+ext/vstring.h
+-
+ext/vstring_fwd.h
+-
+assert.h
+-
+
+../../muduo/base/copyable.h
+
+/mnt/dwork/leanring/muduo-1.0.3/muduo/base/tests/Date_unittest.cc
+muduo/base/Date.h
+-
+assert.h
+-
+stdio.h
+-
+

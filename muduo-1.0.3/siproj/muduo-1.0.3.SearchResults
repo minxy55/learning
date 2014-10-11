@@ -1,0 +1,17 @@
+---- connectEstablished Matches (4 in 4 files) ----
+TcpClient.cc (muduo\net):161
+  conn->connectEstablished();
+}
+
+TcpConnection.cc (muduo\net):275
+void TcpConnection::connectEstablished()
+{
+  loop_->assertInLoopThread();
+TcpConnection.h (muduo\net):109
+  void connectEstablished();   // should be called only once
+  // called when TcpServer has removed me from its map
+  void connectDestroyed();  // should be called only once
+TcpServer.cc (muduo\net):101
+  ioLoop->runInLoop(boost::bind(&TcpConnection::connectEstablished, conn));
+}
+
