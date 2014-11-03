@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html>
+<body onLoad="pageInit()">
+
+<p><input type="file" id="myinput"></p>
+<p><button type="button" onClick="upload()">Upload</button></p>
+<div id="upload_div"></div>
+<div id="check_div"></div>
+<div id="update_div"></div>
+<div id="finish_div"></div>
+
+<script>
+var url_ = null;
+var check_timer = null;
+var update_timer = null;
+
+function allFinished()
+{
+	var finishdiv = document.getElementById("finish_div");
+	
+	finishdiv.innerHTML = "all finished";
+}
+
+function updating()
+{
+	var updatediv = document.getElementById("update_div");
+	
+	var url = url_ + "/update";
+	var xhr = new XMLHttpRequest();
+
+	xhr.open("GET", url);
+	xhr.onreadystatechange = function() {
+		if (xhr.readyState === 4 && xhr.status === 200) {
+			var t = xhr.responseText;			
+			if (t === "100") {
+				clearInterval(update_timer);
+				setTimeout("allFinished()", 100);
+			}
+			
+			updatediv.innerHTML = "updating " + t + "% completed";
+		}
+	};
+	xhr.send(null);
+}
+
+function afterCheck()
+{
+	update_timer = setInterval("updating()", 50);
+	console.log("afterCheck");
+}
+
+function checking()
+{
+	var checkdiv = document.getElementById("check_div");
+	
+	var url = url_ + "/check";
+	var xhr = new XMLHttpRequest();
+
+	xhr.open("GET", url);
+	xhr.onreadystatechange = function() {
+		if (xhr.readyState === 4 && xhr.status === 200) {
+			var t = xhr.responseText;			
+			if (t === "100") {
+				clearInterval(check_timer);
+				setTimeout("afterCheck()", 100);
+			}
+			
+			checkdiv.innerHTML = "checking " + t + "% completed";
+		}
+	};
+	xhr.send(null);
+}
+
+function afterUpload()
+{
+	check_timer = setInterval("checking()", 50);
+	console.log("afterUpload");
+}
+
+function upload()
+{
+	console.log("posting");
+
+	var url = url_ + "/upload";
+	
+	var input = document.getElementById("myinput");
+	var mydiv = document.getElementById("upload_div");
+	
+	var file = input.files[0];
+	if (!file) {
+		alert("please select a file");
+		return;
+	}
+	console.log("file: " + file.name);
+	
+	var xhr = new XMLHttpRequest();
+	xhr.addEventListener("loadstart", function() {
+		console.log("loadstart");
+	});
+	xhr.addEventListener("load", function() {
+		console.log("load");
+		if (xhr.status !== 200) {
+			alert("failed to upload!");
+			return;
+		}
+		
+		mydiv.innerHTML = "uploading 100% completed";
+		setTimeout("afterUpload()", 100);
+	});
+	xhr.addEventListener("timeout", function() {
+		alert("upload timeout!");
+	});
+	xhr.upload.onprogress = function(e) {
+		console.log("onprogress");
+		if (!e.lengthComputable)
+			console.log("e.lengthComputable = false");
+		if (e.lengthComputable)
+			mydiv.innerHTML = "uploading " + Math.round(100 * e.loaded / e.total) + "% completed";
+	};
+	xhr.open("POST", url);
+	xhr.send(file);
+}
+
+function pageInit()
+{
+	var local = document.location;
+	console.log("local: " + local.toString());
+	console.log("protocol: " + local.protocol.toString());
+	console.log("host: " + local.host.toString());
+	console.log("port: " + local.port.toString());
+	console.log("pathname: " + local.pathname.toString());
+	console.log("search: " + local.search.toString());
+	console.log("hash: " + local.hash.toString());
+
+	url_ = "";
+	url_ += local.protocol.toString();
+	url_ += "//";
+	url_ += local.host.toString();
+
+	console.log("url_: " + url_);
+}
+</script>
+
+</body>
+</html>
+
