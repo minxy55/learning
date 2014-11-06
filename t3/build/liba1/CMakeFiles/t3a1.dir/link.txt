@@ -1,0 +1,1 @@
+/usr/bin/gcc  -fPIC    -shared -Wl,-soname,libt3a1.so -o ../libs/libt3a1.so CMakeFiles/t3a1.dir/t3.c.o 

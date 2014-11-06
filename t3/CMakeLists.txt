@@ -1,0 +1,5 @@
+cmake_minimum_required(VERSION 2.8)
+
+PROJECT(t3)
+ADD_SUBDIRECTORY(liba1)
+ADD_SUBDIRECTORY(liba2)

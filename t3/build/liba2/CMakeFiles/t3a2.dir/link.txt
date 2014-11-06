@@ -1,0 +1,2 @@
+/usr/bin/ar cr ../libs/libt3a2.a  CMakeFiles/t3a2.dir/t3.c.o
+/usr/bin/ranlib ../libs/libt3a2.a

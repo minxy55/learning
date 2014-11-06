@@ -1,0 +1,2 @@
+/mnt/dwork/learning/t3/build/liba1/CMakeFiles/t3a1.dir
+/mnt/dwork/learning/t3/build/liba2/CMakeFiles/t3a2.dir
