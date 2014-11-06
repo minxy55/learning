@@ -1,0 +1,3 @@
+PROJECT(t2)
+ADD_SUBDIRECTORY(src)
+
