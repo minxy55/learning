@@ -1,0 +1,71 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Main Menu</title>
+</head>
+
+<body onload="pageInit()">
+<style type="text/css">
+	body {
+		position: absolute
+		left: 0px;
+		top: 0px;
+		width: 1280px;
+		height: 720px;
+		background-image: url("img/userSetBg.jpg");
+		background-repeat:no-repeat;
+		z-index:80;
+	}
+	.setitem {
+		position: absolute;
+		left: 0px;
+		top: 20px;	
+		width: 350px;
+		height: 350px;
+		border-top-left-radius: 8px;
+		border-top-right-radius: 8px;
+		border-bottom-left-radius: 8px;
+		border-bottom-right-radius: 8px;
+		z-index:100;
+	}
+</style>
+
+<div class="setitem" id="set0"></div>
+<div class="setitem" id="set1"></div>
+<div class="setitem" id="set2"></div>
+<div class="setitem" id="set3"></div>
+<div class="setitem" id="set4"></div>
+<div class="setitem" id="set5"></div>
+
+<script type="text/javascript">
+var images = [
+	{id: "set0", out: "img/set0_0.png", on: "img/set0_1.png"},
+	{id: "set1", out: "img/set1_0.png", on: "img/set1_1.png"},
+	{id: "set2", out: "img/set2_0.png", on: "img/set2_1.png"},
+	{id: "set3", out: "img/set3_0.png", on: "img/set3_1.png"},
+	{id: "set4", out: "img/set4_0.png", on: "img/set4_1.png"},
+	{id: "set5", out: "img/set5_0.png", on: "img/set5_1.png"},
+];
+
+function redraw()
+{
+	for (var i = 0; i < 6; i++) {
+		var it = document.getElementById(images[i].id);
+		
+		var left = i * 350 + 40;
+		
+		console.log("it = " + it + "left = " + left);
+		
+		it.style.left = "" + left + "px";
+		it.style.backgroundImage = "url(" + images[i].out + ")";
+	}
+}
+
+function pageInit()
+{
+	
+}
+</script>
+</body>
+</html>

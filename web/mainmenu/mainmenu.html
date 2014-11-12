@@ -1,0 +1,186 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Main Menu</title>
+</head>
+
+<body style="margin-left:0px;margin-right:0px;" onload="pageInit()">
+<style type="text/css">
+	#menulist {
+		position: absolute;
+		left:40px;
+		top:123px;
+		width: 200px;
+		border:#555555 solid 1px;
+		border-top-left-radius: 8px;
+		border-top-right-radius: 8px;
+		border-bottom-left-radius: 8px;
+		border-bottom-right-radius: 8px;
+		z-index:100;
+		-webkit-transition-property:left;
+		-webkit-transition-duration:0.5s;
+	}
+
+	#menufocus {
+		position: absolute;
+		left:40px;
+		top:130px;
+		z-index:90;
+		width: 200px;
+		height:60px;
+		background-image:url("img/focusText1.png");
+		background-repeat:no-repeat;
+		-webkit-transition-property:left top;
+		-webkit-transition-duration:0.5s;
+	}
+
+	.menuitem {
+		float:left;
+		width: 200px;
+		height:60px;
+		line-height:60px;
+		text-align:center;
+	}
+	
+	#submenu {
+		position: absolute;
+		left: 320px;
+		top: 80px;
+		width: 400px;
+		height: 480px;
+		z-index: 100;
+		border: #003366 solid 1px;
+		border-top-left-radius: 8px;
+		border-top-right-radius: 8px;
+		border-bottom-left-radius: 8px;
+		border-bottom-right-radius: 8px;
+		-webkit-transition-property: width height;
+		-webkit-transition-duration: 0.3s;
+	}
+
+</style>
+
+<div id="menulist"></div>
+<div id="menufocus"></div>
+<div id="submenu"></div>
+
+<script type="text/javascript">
+var menu_items = [
+	{name: "Trackmenu", url:"trackmenu.html"},
+	{name: "BBBBBBBBBBBBBB", url:""},
+	{name: "CDDDDDDDDDDDDDDDDDD", url:""},
+	{name: "FFFFFFFFFF", url:""},
+];
+var current_index = 0;
+var key_timer = null;
+
+function hiddenMenu()
+{
+	console.log("onkeydown timeout");
+	
+	var menulist = document.getElementById("menulist");
+	menulist.style.left = "-205px";
+	
+	var menufocus = document.getElementById("menufocus");
+	menufocus.style.left = "-205px";
+	
+	var submenu = document.getElementById("submenu");
+	submenu.style.width = "0px";
+	submenu.style.height = "0px";
+	
+	clearTimer();
+}
+
+function startTimer()
+{
+	var menulist = document.getElementById("menulist");
+	menulist.style.left = "40px";
+	
+	var menufocus = document.getElementById("menufocus");
+	menufocus.style.left = "42px";
+	
+	var submenu = document.getElementById("submenu");
+	submenu.style.width = "400px";
+	submenu.style.height = "480px";
+	
+	key_timer = setInterval(hiddenMenu, 1000);
+}
+
+function clearTimer()
+{
+	if (key_timer != null)
+	{
+		clearInterval(key_timer);
+		key_timer = null;
+	}
+}
+
+function moveFocus(act)
+{
+	var menufocus = document.getElementById("menufocus");
+		
+	if (act == +1)
+	{
+		current_index += 1;
+		current_index %= menu_items.length;
+	}
+	else if (act == -1)
+	{
+		if (current_index > 0)
+			current_index -= 1;
+		else
+			current_index = menu_items.length - 1;
+	}
+	
+	menufocus.style.top = (130 + current_index * 60) + "px";
+}
+
+function enterItem()
+{
+	console.log("url:" + menu_items[current_index].url);
+	window.location.href = menu_items[current_index].url;
+}
+
+function onKeydown(e)
+{
+	clearTimer();
+	startTimer();
+	
+	console.log("keycode:" + e.keyCode);
+
+	switch(e.keyCode)
+	{
+		case 38:
+			moveFocus(-1);
+			break;
+		case 40:
+			moveFocus(+1);
+			break;
+		case 13:
+			enterItem();
+			break;
+		default:
+			break;
+	}
+}
+
+function pageInit()
+{
+	window.onkeydown = onKeydown;
+	
+	var menulist = document.getElementById("menulist");
+	
+	for (var i = 0; i < menu_items.length; i++)
+	{
+		var tempdiv = document.createElement("div");
+		tempdiv.className = "menuitem";
+		tempdiv.innerHTML = menu_items[i].name;
+		menulist.appendChild(tempdiv);
+	}
+	
+	startTimer();
+}
+</script>
+</body>
+</html>
