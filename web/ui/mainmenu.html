@@ -9,68 +9,61 @@
 <style type="text/css">
 	#menulist {
 		position: absolute;
-		left:40px;
-		top:123px;
+		left: 40px;
+		top: 130px;
 		width: 200px;
+		height: 184px
 		border:#555555 solid 1px;
 		border-top-left-radius: 8px;
 		border-top-right-radius: 8px;
 		border-bottom-left-radius: 8px;
 		border-bottom-right-radius: 8px;
-		z-index:100;
+		z-index:1;
 		-webkit-transition-property:left;
 		-webkit-transition-duration:0.5s;
+	}
+	
+	.menuitem {
+		float: left;
+		top: 130px;
+		width: 200px;
+		height: 46px;
+		line-height:46px;
+		text-align:center;
+		color:#FFFFFF;
+		background-image:url("../img/focusText1.png");
+		background-position:center;
+		background-repeat:no-repeat;
+		z-index:2;
 	}
 
 	#menufocus {
 		position: absolute;
-		left:40px;
-		top:130px;
-		z-index:90;
+		left: 40px;
+		top: 130px;
 		width: 200px;
-		height:60px;
-		background-image:url("img/focusText1.png");
+		height: 46px;
+		opacity: 0.7;
+		background-image:url("../img/focusText0.png");
 		background-repeat:no-repeat;
+		background-position:center;
 		-webkit-transition-property:left top;
 		-webkit-transition-duration:0.5s;
+		z-index:3;
 	}
-
-	.menuitem {
-		float:left;
-		width: 200px;
-		height:60px;
-		line-height:60px;
-		text-align:center;
-	}
-	
-	#submenu {
-		position: absolute;
-		left: 320px;
-		top: 80px;
-		width: 400px;
-		height: 480px;
-		z-index: 100;
-		border: #003366 solid 1px;
-		border-top-left-radius: 8px;
-		border-top-right-radius: 8px;
-		border-bottom-left-radius: 8px;
-		border-bottom-right-radius: 8px;
-		-webkit-transition-property: width height;
-		-webkit-transition-duration: 0.3s;
-	}
-
 </style>
 
 <div id="menulist"></div>
 <div id="menufocus"></div>
 <div id="submenu"></div>
 
+<script type="text/javascript" src="../js/utils.js"></script>
 <script type="text/javascript">
 var menu_items = [
-	{name: "Trackmenu", url:"trackmenu.html"},
-	{name: "BBBBBBBBBBBBBB", url:""},
-	{name: "CDDDDDDDDDDDDDDDDDD", url:""},
-	{name: "FFFFFFFFFF", url:""},
+	{it: null, name: "Trackmenu", url:"trackmenu.html"},
+	{it: null, name: "Not implemented 1", url:""},
+	{it: null, name: "Not implemented 2", url:""},
+	{it: null, name: "Not implemented 3", url:""},
 ];
 var current_index = 0;
 var key_timer = null;
@@ -80,14 +73,10 @@ function hiddenMenu()
 	console.log("onkeydown timeout");
 	
 	var menulist = document.getElementById("menulist");
-	menulist.style.left = "-205px";
+	menulist.style.left = toPx(-300);
 	
 	var menufocus = document.getElementById("menufocus");
-	menufocus.style.left = "-205px";
-	
-	var submenu = document.getElementById("submenu");
-	submenu.style.width = "0px";
-	submenu.style.height = "0px";
+	menufocus.style.left = toPx(-300);
 	
 	clearTimer();
 }
@@ -95,16 +84,12 @@ function hiddenMenu()
 function startTimer()
 {
 	var menulist = document.getElementById("menulist");
-	menulist.style.left = "40px";
+	menulist.style.left = toPx(40);
 	
 	var menufocus = document.getElementById("menufocus");
-	menufocus.style.left = "42px";
+	menufocus.style.left = toPx(40);
 	
-	var submenu = document.getElementById("submenu");
-	submenu.style.width = "400px";
-	submenu.style.height = "480px";
-	
-	key_timer = setInterval(hiddenMenu, 1000);
+	key_timer = setInterval(hiddenMenu, 2000);
 }
 
 function clearTimer()
@@ -133,7 +118,7 @@ function moveFocus(act)
 			current_index = menu_items.length - 1;
 	}
 	
-	menufocus.style.top = (130 + current_index * 60) + "px";
+	menufocus.style.top = toPx(130 + current_index * 46);
 }
 
 function enterItem()
@@ -170,14 +155,19 @@ function pageInit()
 	window.onkeydown = onKeydown;
 	
 	var menulist = document.getElementById("menulist");
+	var menufocus = document.getElementById("menufocus");
 	
 	for (var i = 0; i < menu_items.length; i++)
 	{
-		var tempdiv = document.createElement("div");
-		tempdiv.className = "menuitem";
-		tempdiv.innerHTML = menu_items[i].name;
-		menulist.appendChild(tempdiv);
+		var it = document.createElement("div");
+		it.className = "menuitem";
+		it.innerHTML = menu_items[i].name;
+		menulist.appendChild(it);
+		
+		menu_items[i].it = it;
 	}
+	
+	menulist.style.height = toPx(menu_items.length * 46);
 	
 	startTimer();
 }
