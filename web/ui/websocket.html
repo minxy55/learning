@@ -1,0 +1,56 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>WebSocket Demo</title>
+</head>
+
+<body onload="onLoad()">
+<div id="support"></div>
+<input type="text" id="inputbox" value="Hello" /><button id="sendbut" onclick="onSend()">send</button>
+<pre id="outputbox"></pre>
+
+
+<script type="text/javascript">
+var w = null;
+var buffer = [];
+
+function onSend()
+{
+	var text = document.getElementById("inputbox").value;
+	
+	console.log("text: " + text);
+	w.send(text);
+}
+
+function onLoad()
+{
+	if (window.WebSocket) {
+		var it = document.getElementById("support").innerHTML = "HTML5 WetSocket is supported in your browser";
+	} else {
+		var it = document.getElementById("support").innerHTML = "HTML5 WetSocket is not supported in your browser";
+	}
+	
+	var url = "ws://192.168.1.102:8088/echo";
+	w = new WebSocket(url);
+	
+	w.onopen = function() {
+			console.log("open");
+		};
+	w.onmessage = function(e) {
+			console.log("onmessage: " + e.data);
+			
+			var msg = document.getElementById("outputbox").textContent += (e.data + "\n");
+			
+			buffer.push(e.data);
+		};
+	w.onclose = function(e) {
+			console.log("onclose");
+		};
+	w.onerror = function(e) {
+			console.log("onerror");
+		};
+}
+</script>
+</body>
+</html>

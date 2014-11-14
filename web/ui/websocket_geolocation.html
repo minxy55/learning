@@ -1,0 +1,115 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>WebSocket/Geolocation Demo</title>
+</head>
+
+<body onload="onLoad()">
+<div id="support_websocket"></div>
+<div id="support_geolocation"></div>
+
+<pre><strong>WebSocket Information:</strong></pre>
+<pre id="websocket_status"></pre>
+<pre><strong>Geolocation Information:</strong></pre>
+<pre id="location_timestamp"></pre>
+
+<script type="text/javascript">
+var w = null;
+var g = null;
+
+function updateLocationStatus(timestamp)
+{
+	console.log("Location updated at: " + timestamp);
+	document.getElementById("location_timestamp").innerHTML = "My Location updated at: " + timestamp;
+}
+
+function updateWebSocketStatus(s)
+{
+	console.log(s);
+	document.getElementById("websocket_status").innerHTML = s;
+}
+
+function handleLocationMessage(positon)
+{
+	var latitude = position.coords.latitude;
+	var longitude = position.coords.longitude;
+	var timestamp = position.timestamp;
+	
+	var toSend = JSON.stringify([id, latitude, longitude]);
+	if (w) {
+		w.send(toSend);
+	}
+	
+	console.log("new Location: " + id + "->" + latitude + "," + longitude);
+	updateLocationStatus(timestamp);
+}
+
+function handleLocationError(err)
+{
+	console.log("" + err.code + "," + err.message);
+}
+
+function dataReturned(locationData)
+{
+	var allData = JSON.parse(locationData);
+	var id = allData[1];
+	var latitude = allData[2];
+	var longitude = allData[3];
+	
+	var d = document.getElementById(id);
+	if (!d) {
+		d = document.createElement("div");
+		
+		d.setAttribute("id", id);
+		d.userId = id;
+		
+		document.body.appendChild(d);
+	}
+	
+	d.innerHTML = "" + d.userText + ": " + latitude + "," + longtitude;
+	
+	return d.userId;
+}
+
+function onLoad()
+{
+	if (window.WebSocket) {
+		document.getElementById("support_websocket").innerHTML = "HTML5 WetSocket is supported in your browser";
+	} else {
+		document.getElementById("support_websocket").innerHTML = "HTML5 WetSocket is not supported in your browser";
+	}
+	
+	var url = "ws://192.168.1.102:8088/echo";
+	w = new WebSocket(url);
+	
+	w.onopen = function() {
+			console.log("open");
+			updateWebSocketStatus("Connected to Tracker server");
+		};
+	w.onmessage = function(e) {
+			console.log("onmessage: " + e.data);
+			
+			var data = e.data;
+			
+			updateWebSocketStatus("Location information from: " + dataReturned(data));
+		};
+	w.onclose = function(e) {
+			console.log("onclose");
+		};
+	w.onerror = function(e) {
+			console.log("onerror");
+		};
+		
+	if (navigator.geolocation) {
+		g = navigator.geolocation;
+		document.getElementById("support_geolocation").innerHTML = "HTML5 Geolocation is supported in your browser";
+	} else {
+		document.getElementById("support_geolocation").innerHTML = "HTML5 Geolocation is not supported in your browser";
+	}
+	
+	g.watchPosition(handleLocationMessage, handleLocationError, {maximumAge: 20000});
+}
+</script>
+</body>
+</html>
