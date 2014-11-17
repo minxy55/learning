@@ -1,0 +1,26 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>System Information</title>
+</head>
+
+<body style="margin-left:0px;margin-right:0px;" onload="onLoad()">
+<div id="div1"></div>
+<div id="div2"></div>
+<div id="div3"></div>
+<script type="text/javascript" src="../js/utils.js"></script>
+<script type="text/javascript">
+
+function onLoad()
+{	
+	document.getElementById("div1").innerHTML = "SystemInfo is " + typeof(SystemInfo) + " and NetworkSetting is " + typeof(NetworkSetting);
+	
+	var c = SystemInfo.getCpuInfo();
+	document.getElementById("div2").innerHTML = c;
+	var m = SystemInfo.getMemInfo();
+	document.getElementById("div3").innerHTML = m;
+}
+</script>
+</body>
+</html>

@@ -32,7 +32,9 @@
 		background-position:center;
 		background-size:cover;
 		transition-property:left top width height;
+		-webkit-transition-property:left top width height;
 		transition-duration:0s;
+		-webkit-transition-duration:0s;
 		z-index:100;
 	}
 </style>
@@ -49,12 +51,12 @@
 <script type="text/javascript" src="../js/utils.js"></script>
 <script type="text/javascript">
 var images = [
-	{id: "set0", out: "../img/set0_0.png", on: "../img/set0_1.png", vdiv: null},
-	{id: "set1", out: "../img/set1_0.png", on: "../img/set1_1.png", vdiv: null},
-	{id: "set2", out: "../img/set2_0.png", on: "../img/set2_1.png", vdiv: null},
-	{id: "set3", out: "../img/set3_0.png", on: "../img/set3_1.png", vdiv: null},
-	{id: "set4", out: "../img/set4_0.png", on: "../img/set4_1.png", vdiv: null},
-	{id: "set5", out: "../img/set5_0.png", on: "../img/set5_1.png", vdiv: null},
+	{id: "set0", out: "../img/set0_0.png", on: "../img/set0_1.png", vdiv: null, href: null},
+	{id: "set1", out: "../img/set1_0.png", on: "../img/set1_1.png", vdiv: null, href: null},
+	{id: "set2", out: "../img/set2_0.png", on: "../img/set2_1.png", vdiv: null, href: "./systeminfo.html"},
+	{id: "set3", out: "../img/set3_0.png", on: "../img/set3_1.png", vdiv: null, href: null},
+	{id: "set4", out: "../img/set4_0.png", on: "../img/set4_1.png", vdiv: null, href: null},
+	{id: "set5", out: "../img/set5_0.png", on: "../img/set5_1.png", vdiv: null, href: null},
 ];
 var cursor = 0;
 var bg_cursor = 0;
@@ -80,6 +82,7 @@ function rePosItems(duration)
 	it.style.height = toPx(240 + 40);
 	it.style.backgroundImage = toUrl(images[index].on);
 	it.style.transitionDuration = duration;
+	it.style.webkitTransitionDuration = duration;
 	it.style.zIndex = 100;
 	
 	// center-left
@@ -91,6 +94,7 @@ function rePosItems(duration)
 	it.style.height = toPx(240);
 	it.style.backgroundImage = toUrl(images[index].out);
 	it.style.transitionDuration = duration;
+	it.style.webkitTransitionDuration = duration;
 	it.style.zIndex = 100;
 	
 	// center-right
@@ -102,6 +106,7 @@ function rePosItems(duration)
 	it.style.height = toPx(240);
 	it.style.backgroundImage = toUrl(images[index].out);
 	it.style.transitionDuration = duration;
+	it.style.webkitTransitionDuration = duration;
 	it.style.zIndex = 100;
 	
 	// center-left-left
@@ -113,6 +118,7 @@ function rePosItems(duration)
 	it.style.height = toPx(240);
 	it.style.backgroundImage = toUrl(images[index].out);
 	it.style.transitionDuration = duration;
+	it.style.webkitTransitionDuration = duration;
 	it.style.zIndex = 100;
 	
 	// center-right-right
@@ -124,6 +130,7 @@ function rePosItems(duration)
 	it.style.height = toPx(240);
 	it.style.backgroundImage = toUrl(images[index].out);
 	it.style.transitionDuration = duration;
+	it.style.webkitTransitionDuration = duration;
 	it.style.zIndex = 100;
 	
 	if (direction == 0 || direction == 1) {
@@ -136,6 +143,7 @@ function rePosItems(duration)
 		it.style.height = toPx(240);
 		it.style.backgroundImage = toUrl(images[index].out);
 		it.style.transitionDuration = duration;
+		it.style.webkitTransitionDuration = duration;
 		it.style.zIndex = 100;
 	} else if (direction == 2) {
 		// center-right-right-right
@@ -147,6 +155,7 @@ function rePosItems(duration)
 		it.style.height = toPx(240);
 		it.style.backgroundImage = toUrl(images[index].out);
 		it.style.transitionDuration = duration;
+		it.style.webkitTransitionDuration = duration;
 		it.style.zIndex = 100;
 	}
 	
@@ -170,6 +179,7 @@ function setBgItemPos()
 		it.style.height = toPx(240);
 		it.style.backgroundImage = toUrl(images[index].out);
 		it.style.transitionDuration = 0;
+		it.style.webkitTransitionDuration = 0;
 		it.style.zIndex = 0;
 	} else if (direction == 2) {
 		// center-right-right-right
@@ -181,12 +191,14 @@ function setBgItemPos()
 		it.style.height = toPx(240);
 		it.style.backgroundImage = toUrl(images[index].out);
 		it.style.transitionDuration = 0;
+		it.style.webkitTransitionDuration = 0;
 		it.style.zIndex = 0;
 	}
 }
 
 function onKeydown(e)
 {
+	var _cursor = cursor;
 	console.log("keycode = " + event.keyCode);
 	
 	if (event.keyCode == 37) {
@@ -199,16 +211,23 @@ function onKeydown(e)
 		cursor += 1;
 		cursor %= 6;
 		direction = 2;
+	} else if (event.keyCode == 13) {
+		if (images[cursor].href !== null) {
+			window.location.href = images[cursor].href;
+		}
+		return;
 	}
 	
 	console.log("cursor = " + cursor);
 	
-	if (move_timer) {
-		move_timer = null;
+	if (cursor !== _cursor) {
+		if (move_timer) {
+			move_timer = null;
+		}
+		
+		setBgItemPos()
+		setTimeout("setItemsPos()", 5);
 	}
-	
-	setBgItemPos()
-	setTimeout("setItemsPos()", 5);
 }
 
 function pageInit()
