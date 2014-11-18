@@ -3,20 +3,12 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>Main Menu</title>
+
+<link type="text/css" rel="stylesheet" href="../css/body_style1.css" />
 </head>
 
 <body onload="pageInit()" onkeydown="onKeydown()">
 <style type="text/css">
-	body {
-		position: absolute
-		left: 0px;
-		top: 0px;
-		width: 1280px;
-		height: 720px;
-		background-image: url("../img/userSetBg.jpg");
-		background-repeat:no-repeat;
-		z-index:80;
-	}
 	.setitem {
 		position: absolute;
 		left: 0px;
@@ -49,10 +41,11 @@
 </div>
 
 <script type="text/javascript" src="../js/utils.js"></script>
+<script type="text/javascript" src="../js/key.js"></script>
 <script type="text/javascript">
 var images = [
 	{id: "set0", out: "../img/set0_0.png", on: "../img/set0_1.png", vdiv: null, href: null},
-	{id: "set1", out: "../img/set1_0.png", on: "../img/set1_1.png", vdiv: null, href: null},
+	{id: "set1", out: "../img/set1_0.png", on: "../img/set1_1.png", vdiv: null, href: "./lansetting.html"},
 	{id: "set2", out: "../img/set2_0.png", on: "../img/set2_1.png", vdiv: null, href: "./systeminfo.html"},
 	{id: "set3", out: "../img/set3_0.png", on: "../img/set3_1.png", vdiv: null, href: null},
 	{id: "set4", out: "../img/set4_0.png", on: "../img/set4_1.png", vdiv: null, href: null},
@@ -62,11 +55,6 @@ var cursor = 0;
 var bg_cursor = 0;
 var direction = 0;
 var move_timer = null;
-
-function toPx(v)
-{
-	return "" + v + "px";
-}
 
 function rePosItems(duration)
 {
@@ -199,23 +187,26 @@ function setBgItemPos()
 function onKeydown(e)
 {
 	var _cursor = cursor;
+	var key = event.keyCode;
 	console.log("keycode = " + event.keyCode);
 	
-	if (event.keyCode == 37) {
+	if (key == KEY_LEFT) {
 		if (cursor > 0)
 			cursor--;
 		else
 			cursor = 5;
 		direction = 1;
-	} else if (event.keyCode == 39) {
+	} else if (key == KEY_RIGHT) {
 		cursor += 1;
 		cursor %= 6;
 		direction = 2;
-	} else if (event.keyCode == 13) {
+	} else if (key == KEY_ENTER) {
 		if (images[cursor].href !== null) {
 			window.location.href = images[cursor].href;
 		}
 		return;
+	} else if (key === KEY_ESC) {
+		back2("mainmenu.html?index=0");
 	}
 	
 	console.log("cursor = " + cursor);
@@ -231,12 +222,21 @@ function onKeydown(e)
 }
 
 function pageInit()
-{
-	direction = 0;
-	cursor = 0;
+{	
 	for (var i = 0; i < 6; i++) {
 		images[i].vdiv = document.getElementById(images[i].id);
 	}
+	
+	var index = getParam("index");
+	
+	if (index == null) {
+		cursor = 0;
+	} else {
+		cursor = parseInt(index);
+	}
+	
+	bg_cursor = (cursor + 3) % 6;
+	direction = 0;
 	
 	rePosItems(0);
 }

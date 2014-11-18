@@ -3,14 +3,30 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>System Information</title>
+
+<link type="text/css" rel="stylesheet" href="../css/body_style1.css" />
 </head>
 
-<body style="margin-left:0px;margin-right:0px;" onload="onLoad()">
+<body onload="onLoad()" onkeydown="onKeydown()">
+<style type="text/css">
+	div {
+		color: #ffffff;
+	}
+</style>
 <div id="div1"></div>
 <div id="div2"></div>
 <div id="div3"></div>
+
+<script type="text/javascript" src="../js/key.js"></script>
 <script type="text/javascript" src="../js/utils.js"></script>
 <script type="text/javascript">
+
+function onKeydown()
+{
+	if (event.keyCode == KEY_ESC) {
+		back2("trackmenu.html?index=2");
+	}
+}
 
 function onLoad()
 {	

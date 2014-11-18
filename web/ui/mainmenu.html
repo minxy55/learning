@@ -3,17 +3,12 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>Main Menu</title>
+
+<link type="text/css" rel="stylesheet" href="../css/body_style1.css" />
 </head>
 
 <body style="margin-left:0px;margin-right:0px;" onload="pageInit()">
-<style type="text/css" src="../css/body_style1.css"></style>
 <style type="text/css">
-	body {
-		width: 1280px;
-		height: 720px;
-		background-image: url("../img/userSetBg.jpg");
-		background-repeat: no-repeat;
-	}
 	#menulist {
 		position: absolute;
 		left: 40px;
@@ -25,6 +20,9 @@
 		border-top-right-radius: 8px;
 		border-bottom-left-radius: 8px;
 		border-bottom-right-radius: 8px;
+		background-image:url(../img/listBg1.png);
+		background-size:cover;
+		background-position:center;
 		z-index:1;
 		-webkit-transition-property:left;
 		-webkit-transition-duration:0.5s;
@@ -38,7 +36,7 @@
 		line-height:47px;
 		text-align:center;
 		color:#FFFFFF;
-		background-image:url("../img/focusText1.png");
+		font-weight:bold;
 		background-position:center;
 		background-repeat:no-repeat;
 		z-index:2;
@@ -64,6 +62,7 @@
 <div id="menufocus"></div>
 <div id="submenu"></div>
 
+<script type="text/javascript" src="../js/key.js"></script>
 <script type="text/javascript" src="../js/utils.js"></script>
 <script type="text/javascript">
 var menu_items = [
@@ -130,6 +129,8 @@ function moveFocus(act)
 
 function enterItem()
 {
+	mainmenu_index = current_index;
+	
 	console.log("url:" + menu_items[current_index].url);
 	window.location.href = menu_items[current_index].url;
 }
@@ -143,13 +144,13 @@ function onKeydown(e)
 
 	switch(e.keyCode)
 	{
-		case 38:
+		case KEY_UP:
 			moveFocus(-1);
 			break;
-		case 40:
+		case KEY_DOWN:
 			moveFocus(+1);
 			break;
-		case 13:
+		case KEY_ENTER:
 			enterItem();
 			break;
 		default:
@@ -159,6 +160,8 @@ function onKeydown(e)
 
 function pageInit()
 {
+	current_index = 0;
+	
 	window.onkeydown = onKeydown;
 	
 	var menulist = document.getElementById("menulist");

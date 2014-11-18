@@ -3,5 +3,6 @@ body {
 	height: 720px;
 	background-image: url("../img/userSetBg.jpg");
 	background-repeat: no-repeat;
+	z-index: 10;
 }
 

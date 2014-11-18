@@ -1,0 +1,450 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Main Menu</title>
+
+<link type="text/css" rel="stylesheet" href="../css/body_style1.css" />
+</head>
+
+<body onload="onLoad()" onkeydown="onKeydown()">
+<style type="text/css">
+	#div1 {
+		position:absolute;
+		left: 340px;
+		top: 100px;
+		width: 600px;
+		height: 200px;
+	}
+	#div2 {
+		position:absolute;
+		left: 340px;
+		top: 240px;
+		width: 600px;
+		height: 80px;
+	}
+	.lable {
+		width: 200px;
+		color:#FFF;
+		font-size: 32px;
+		font-weight:800;
+	}
+	.txtl_n {
+		float:left;
+		width:20px;
+		color:#CCC;
+		font-size:32px;
+		background-color:#333;
+	}
+	.txtl_dot {
+		float:left;
+		width:20px;
+		color:#CCC;
+		font-size:32px;
+	}
+	#but1 {
+		position:absolute;
+		left: 400px;
+		top: 400px;
+		width: 120px;
+		height: 40px;
+		font-family: Arial, Helvetica, sans-serif;
+		font-size: 24px;
+		font-weight: bold;
+		background-image:url(../img/focusText0.png);
+		border-top-left-radius: 8px;
+		border-top-right-radius: 8px;
+		border-bottom-left-radius: 8px;
+		border-bottom-right-radius: 8px;
+	}
+	#but2 {
+		position:absolute;
+		left: 760px;
+		top: 400px;
+		width: 120px;
+		height: 40px;
+		font-family: Arial, Helvetica, sans-serif;
+		font-size: 24px;
+		font-weight: bold;
+		background-image:url(../img/focusText0.png);
+		border-top-left-radius: 8px;
+		border-top-right-radius: 8px;
+		border-bottom-left-radius: 8px;
+		border-bottom-right-radius: 8px;
+	}
+</style>
+
+<div id="div1">
+	<table>
+		<tr>
+			<th>
+				<div class="lable">网络地址</div>
+			</th>
+			<th>
+				<span><div id="txtl_0_0" class="txtl_n">0</div></span>
+				<span><div id="txtl_0_1" class="txtl_n">0</div></span>
+				<span><div id="txtl_0_2" class="txtl_n">0</div></span>
+				
+			</th>
+			<th>
+				<span><div class="txtl_dot">.</div></span>
+			</th>
+			<th>
+				<span><div id="txtl_0_3" class="txtl_n">0</div></span>
+				<span><div id="txtl_0_4" class="txtl_n">0</div></span>
+				<span><div id="txtl_0_5" class="txtl_n">0</div></span>
+			</th>
+			<th>
+				<span><div class="txtl_dot">.</div></span>
+			</th>
+			<th>
+				<span><div id="txtl_0_6" class="txtl_n">0</div></span>
+				<span><div id="txtl_0_7" class="txtl_n">0</div></span>
+				<span><div id="txtl_0_8" class="txtl_n">0</div></span>
+			</th>
+			<th>
+				<span><div class="txtl_dot">.</div></span>
+			</th>
+			<th>
+				<span><div id="txtl_0_9" class="txtl_n">0</div></span>
+				<span><div id="txtl_0_10" class="txtl_n">0</div></span>
+				<span><div id="txtl_0_11" class="txtl_n">0</div></span>
+			</th>
+		</tr>
+	</table>
+	
+	<table>
+		<tr>
+			<th>
+				<div class="lable">子网掩码</div>
+			</th>
+			<th>
+				<span><div id="txtl_1_0" class="txtl_n">0</div></span>
+				<span><div id="txtl_1_1" class="txtl_n">0</div></span>
+				<span><div id="txtl_1_2" class="txtl_n">0</div></span>
+			</th>
+			<th>
+				<span><div class="txtl_dot">.</div></span>
+			</th>
+			<th>
+				<span><div id="txtl_1_3" class="txtl_n">0</div></span>
+				<span><div id="txtl_1_4" class="txtl_n">0</div></span>
+				<span><div id="txtl_1_5" class="txtl_n">0</div></span>
+			</th>
+			<th>
+				<span><div class="txtl_dot">.</div></span>
+			</th>
+			<th>
+				<span><div id="txtl_1_6" class="txtl_n">0</div></span>
+				<span><div id="txtl_1_7" class="txtl_n">0</div></span>
+				<span><div id="txtl_1_8" class="txtl_n">0</div></span>
+			</th>
+			<th>
+				<span><div class="txtl_dot">.</div></span>
+			</th>
+			<th>
+				<span><div id="txtl_1_9" class="txtl_n">0</div></span>
+				<span><div id="txtl_1_10" class="txtl_n">0</div></span>
+				<span><div id="txtl_1_11" class="txtl_n">0</div></span>
+			</th>
+		</tr>
+	</table>
+	
+	<table>
+		<tr>
+			<th>
+				<div class="lable">默认网关</div>
+			</th>
+			<th>
+				<span><div id="txtl_2_0" class="txtl_n">0</div></span>
+				<span><div id="txtl_2_1" class="txtl_n">0</div></span>
+				<span><div id="txtl_2_2" class="txtl_n">0</div></span>
+				
+			</th>
+			<th>
+				<span><div class="txtl_dot">.</div></span>
+			</th>
+			<th>
+				<span><div id="txtl_2_3" class="txtl_n">0</div></span>
+				<span><div id="txtl_2_4" class="txtl_n">0</div></span>
+				<span><div id="txtl_2_5" class="txtl_n">0</div></span>
+			</th>
+			<th>
+				<span><div class="txtl_dot">.</div></span>
+			</th>
+			<th>
+				<span><div id="txtl_2_6" class="txtl_n">0</div></span>
+				<span><div id="txtl_2_7" class="txtl_n">0</div></span>
+				<span><div id="txtl_2_8" class="txtl_n">0</div></span>
+			</th>
+			<th>
+				<span><div class="txtl_dot">.</div></span>
+			</th>
+			<th>
+				<span><div id="txtl_2_9" class="txtl_n">0</div></span>
+				<span><div id="txtl_2_10" class="txtl_n">0</div></span>
+				<span><div id="txtl_2_11" class="txtl_n">0</div></span>
+			</th>
+		</tr>
+	</table>
+</div>
+
+<div id="div2">
+	<table>
+		<tr>
+			<th>
+				<div class="lable">DNS</div>
+			</th>
+			<th>
+				<span><div id="txtl_3_0" class="txtl_n">0</div></span>
+				<span><div id="txtl_3_1" class="txtl_n">0</div></span>
+				<span><div id="txtl_3_2" class="txtl_n">0</div></span>
+				
+			</th>
+			<th>
+				<span><div class="txtl_dot">.</div></span>
+			</th>
+			<th>
+				<span><div id="txtl_3_3" class="txtl_n">0</div></span>
+				<span><div id="txtl_3_4" class="txtl_n">0</div></span>
+				<span><div id="txtl_3_5" class="txtl_n">0</div></span>
+			</th>
+			<th>
+				<span><div class="txtl_dot">.</div></span>
+			</th>
+			<th>
+				<span><div id="txtl_3_6" class="txtl_n">0</div></span>
+				<span><div id="txtl_3_7" class="txtl_n">0</div></span>
+				<span><div id="txtl_3_8" class="txtl_n">0</div></span>
+			</th>
+			<th>
+				<span><div class="txtl_dot">.</div></span>
+			</th>
+			<th>
+				<span><div id="txtl_3_9" class="txtl_n">0</div></span>
+				<span><div id="txtl_3_10" class="txtl_n">0</div></span>
+				<span><div id="txtl_3_11" class="txtl_n">0</div></span>
+			</th>
+		</tr>
+	</table>
+</div>
+
+<div id="div3">
+	<button id="but1" onfocus="cur_id='but1'; buttOnFocus()" onblur="cur_id='but1'; buttOnLostFocus()" onclick="onSaveClick()">保存</button>
+</div>
+<div id="div4">
+	<button id="but2" onfocus="cur_id='but2'; buttOnFocus()" onblur="cur_id='but2'; buttOnLostFocus()" onclick="onCleanClick()">清除</button>
+</div>
+
+<script type="text/javascript" src="../js/utils.js"></script>
+<script type="text/javascript" src="../js/key.js"></script>
+<script type="text/javascript">
+var cursor = {
+	old: {group: -1, bit: -1},
+	now: {group: -1, bit: -1},
+};
+var network_param = {
+	ipaddr: [192, 168, 1, 111],
+	netmask: [255, 255, 255, 0],
+	gateway: [192, 168, 1, 1],
+	dns1: [8, 8, 8, 8],
+};
+
+function buttOnFocus()
+{
+	var butt = document.getElementById(cur_id);
+	
+	butt.style.backgroundImage = "url(img/focusText1.png)";
+}
+
+function buttOnLostFocus()
+{
+	var butt = document.getElementById(cur_id);
+	butt.style.backgroundImage = "url(img/focusText0.png)";
+}
+
+function onSaveClick()
+{
+}
+
+function onCleanClick()
+{
+	resetNetworkParam();
+	setNetworkParam();
+}
+
+function setNetworkParam()
+{
+	for (var i = 0; i < 12; i++) {
+		var d = document.getElementById("txtl_0_" + i);
+		var v = network_param.ipaddr[parseInt(i / 3)];
+		console.log("txtl_0_" + i + " v = " + v);
+		
+		for (var j = 0; j < (2 - (i % 3)); j++) {
+			v = parseInt(v / 10);
+		}
+		console.log("txtl_0_" + i + " v = " + v);
+		d.innerHTML = "" + (v % 10);
+	}
+	
+	for (var i = 0; i < 12; i++) {
+		var d = document.getElementById("txtl_1_" + i);
+		var v = network_param.netmask[parseInt(i / 3)];
+		
+		for (var j = 0; j < (2 - (i % 3)); j++) {
+			v = parseInt(v / 10);
+		}
+		d.innerHTML = "" + (v % 10);
+	}
+	
+	for (var i = 0; i < 12; i++) {	
+		var d = document.getElementById("txtl_2_" + i);
+		var v = network_param.gateway[parseInt(i / 3)];
+		
+		for (var j = 0; j < (2 - (i % 3)); j++) {
+			v = parseInt(v / 10);
+		}
+		d.innerHTML = "" + (v % 10);
+	}
+	
+	for (var i = 0; i < 12; i++) {
+		var d = document.getElementById("txtl_3_" + i);
+		var v = network_param.dns1[parseInt(i / 3)];
+		
+		for (var j = 0; j < (2 - (i % 3)); j++) {
+			v = parseInt(v / 10);
+		}
+		d.innerHTML = "" + (v % 10);
+	}
+}
+
+function resetNetworkParam()
+{
+	for (var i = 0; i < 4; i++) {
+		network_param.ipaddr[i] = 0;
+	}
+	
+	for (var i = 0; i < 4; i++) {
+		network_param.netmask[i] = 0;
+	}
+	
+	for (var i = 0; i < 4; i++) {
+		network_param.gateway[i] = 0;
+	}
+	
+	for (var i = 0; i < 4; i++) {
+		network_param.dns1[i] = 0;
+	}
+}
+
+function highlightNetworkParam()
+{	
+	if ((cursor.now.group != cursor.old.group) || 
+		(cursor.now.bit != cursor.old.bit)) {
+		if (cursor.old.group >= 0 && cursor.now.bit >= 0) {
+			var d = document.getElementById("txtl_" + cursor.old.group + "_" + cursor.old.bit);	
+			d.style.backgroundColor = "#333";
+			d.style.color = "#ccc";
+		}
+		
+		if (cursor.now.group >= 0 && cursor.now.bit >= 0) {
+			var d = document.getElementById("txtl_" + cursor.now.group + "_" + cursor.now.bit);
+			d.style.backgroundColor = "#0000ff";
+			d.style.color = "#000000";
+		}
+		
+		cursor.old.group = cursor.now.group;
+		cursor.old.bit = cursor.now.bit;
+	}
+}
+
+function onKeydown()
+{
+	var key = event.keyCode;
+	
+	if (isArrawKey(key)) {
+		if (key == KEY_LEFT) {
+			if (cursor.now.bit > 0) {
+				cursor.now.bit -= 1;
+			} else {
+				if (cursor.now.group > 0) {
+					cursor.now.group -= 1;
+					cursor.now.bit = 11;
+				} else {
+				}
+			}
+		} else if (key == KEY_RIGHT) {
+			if (cursor.now.bit < 11) {
+				cursor.now.bit += 1;
+			} else {
+				if (cursor.now.group < 3) {
+					cursor.now.group += 1;
+					cursor.now.bit = 0;
+				} else {
+				}
+			}
+		} else if (key == KEY_UP) {
+			if (cursor.now.group > 0) {
+				cursor.now.group -= 1;
+			}
+		} else if (key == KEY_DOWN) {
+			if (cursor.now.group < 3) {
+				cursor.now.group += 1;
+			}
+		}
+		
+		highlightNetworkParam();
+	}
+	if (isDigitKey(key)) {
+		var digit = key - KEY_0;
+		
+		if (cursor.now.group >= 0 && cursor.now.bit >= 0) {
+			if ((cursor.now.bit % 3) == 0 && key > KEY_2)
+				return;
+			if ((cursor.now.bit % 3) != 0 && key > KEY_5)
+				return;
+				
+			var d = document.getElementById("txtl_" + cursor.now.group + "_" + cursor.now.bit);
+			
+			d.innerHTML = "" + digit;
+			
+			if (cursor.now.bit == 11) {
+				if (cursor.now.group == 3) {
+					
+				} else {
+					cursor.now.group += 1;
+					cursor.now.bit = 0;
+				}
+			} else {
+				cursor.now.bit += 1;
+			}
+			
+			highlightNetworkParam();
+		}
+	}
+	
+	if (isEscKey(key)) {
+		back2("./trackmenu.html?index=1");
+	}
+}
+
+function loadNetworkParam()
+{
+}
+
+function storeNetworkParam()
+{
+}
+
+function onLoad()
+{
+	loadNetworkParam();
+	setNetworkParam();
+	
+	cursor.now.group = 0;
+	cursor.now.bit = 0;
+	highlightNetworkParam();
+}
+</script>
+</body>
+</html>
