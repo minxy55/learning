@@ -32,6 +32,8 @@ function updateWebSocketStatus(s)
 
 function handleLocationMessage(positon)
 {
+	console.log("handleLocationMessage");
+	
 	var latitude = position.coords.latitude;
 	var longitude = position.coords.longitude;
 	var timestamp = position.timestamp;
@@ -79,7 +81,7 @@ function onLoad()
 	} else {
 		document.getElementById("support_websocket").innerHTML = "HTML5 WetSocket is not supported in your browser";
 	}
-	
+/*	
 	var url = "ws://192.168.1.102:8088/echo";
 	w = new WebSocket(url);
 	
@@ -100,15 +102,19 @@ function onLoad()
 	w.onerror = function(e) {
 			console.log("onerror");
 		};
-		
+*/
 	if (navigator.geolocation) {
 		g = navigator.geolocation;
 		document.getElementById("support_geolocation").innerHTML = "HTML5 Geolocation is supported in your browser";
 	} else {
 		document.getElementById("support_geolocation").innerHTML = "HTML5 Geolocation is not supported in your browser";
+		return;
 	}
 	
-	g.watchPosition(handleLocationMessage, handleLocationError, {maximumAge: 20000});
+	g.getCurrentPosition(handleLocationMessage, handleLocationError, {timeout: 1000});
+	g.watchPosition(handleLocationMessage, handleLocationError, {maximumAge: 1000});
+	
+	console.log("loading...");
 }
 </script>
 </body>

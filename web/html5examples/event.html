@@ -1,0 +1,34 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>无标题文档</title>
+</head>
+
+<body>
+<div id="div1">点击文字，先到达div单击事件</div>
+<pre id="output"></pre>
+
+<script type="text/javascript">
+document.getElementById("output").innerHTML = "";
+window.addEventListener("load", function() {
+	window.addEventListener("click", function() {
+		document.getElementById("output").innerHTML += "" + event.eventPhase + "\n";
+	}, false);
+	window.onclick = function() {
+		document.getElementById("output").innerHTML += "" + event.eventPhase + "\n";
+		event.stopPropagation();
+	};
+	
+	document.getElementById("div1").addEventListener("click", function() {
+		document.getElementById("output").innerHTML += "" + event.eventPhase + "\n";
+		console.log("DOM2 Event");
+	}, true);
+	document.getElementById("div1").onclick = function() {
+		document.getElementById("output").innerHTML += "" + event.eventPhase + "\n";
+		console.log("DOM0 Event");
+	};
+});
+</script>
+</body>
+</html>

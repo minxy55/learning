@@ -1,0 +1,139 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>无标题文档</title>
+</head>
+
+<body>
+<div><strong>这个DIV有3个属性，每个属性都是一个Attr节点，类型为2</strong></div>
+<div id="div1" title="this is a example" data_inner_name="dddiv">div example</div>
+
+<p>
+<div><strong>开始没有TEXT node，后来追加了两个,又经过一次normalize后变成了一个TEXT node</strong></div>
+<div id="div2"></div>
+
+<p>
+<div><strong>只有一个空格的TEXT node</strong></div>
+<div id="div3"> </div>
+
+<p>
+<div><strong>有一个TEXT NODE,使用appendData()给TEXT NODE追加文本数据</strong></div>
+<div id="div4">Hello World!</div>
+
+<p>
+<div><strong>有一个COMMENT节点</strong></div>
+<div id="div5"><!--comment--></div>
+
+<p>
+<div><strong>显示script的子节点</strong></div>
+<div id="div6"></div>
+
+<p>
+<div><strong>增加了一个script子节点</strong></div>
+<div id="div7"></div>
+
+<p>
+<div><strong>动态增加4个div元素，HTMLCollection/NamedNodeList也会跟着动态变化</strong></div>
+<div id="div8"></div>
+<div id="div9"></div>
+
+</body>
+
+<script type="text/javascript" id="script1">
+/* 
+ * comment
+ */
+function outputAttribute(element)
+{
+	if (element.nodeType != Node.ELEMENT_NODE) {
+		console.log("this is not a element type");
+		return;
+	}
+	
+	var pairs = new Array();
+	
+	for (var i = 0, len = element.attributes.length; i < len; i++) {
+		var attrType = element.attributes[i].nodeType;
+		var attrName = element.attributes[i].name;
+		var attrValue = element.attributes[i].value;
+		
+		pairs.push(attrName + "(" + attrType + ")" + "=\"" + attrValue + "\"");
+	}
+	pairs.join(" ");
+	
+	console.log("attributes: " + pairs);
+}
+
+window.onload = function() {
+	var d1 = document.getElementById("div1");
+	
+	console.log("data_inner_name: " + d1.data_inner_name);
+	console.log("data_inner_name2: " + d1.getAttribute("data_inner_name")); 
+	
+	outputAttribute(d1);
+	
+	var d2 = document.getElementById("div2");	
+	console.log("d2 has " + d2.childNodes.length + " children");
+	for (var i = 0; i < d2.childNodes.length; i++) {
+		console.log("\t " + d2.childNodes[i].nodeName + " = \"" + d2.childNodes[i].nodeValue + "\"");
+	}
+	
+	d2.appendChild(document.createTextNode("create first text node"));
+	console.log("d2 has " + d2.childNodes.length + " children");
+	for (var i = 0; i < d2.childNodes.length; i++) {
+		console.log("\t " + d2.childNodes[i].nodeName + " = \"" + d2.childNodes[i].nodeValue + "\"");
+	}
+	d2.appendChild(document.createTextNode("<strong>create second text node</strong>"));
+	console.log("d2 has " + d2.childNodes.length + " children");
+	for (var i = 0; i < d2.childNodes.length; i++) {
+		console.log("\t " + d2.childNodes[i].nodeName + " = \"" + d2.childNodes[i].nodeValue + "\"");
+	}
+	
+	d2.normalize();
+	console.log("d2 has " + d2.childNodes.length + " children");
+	for (var i = 0; i < d2.childNodes.length; i++) {
+		console.log("\t " + d2.childNodes[i].nodeName + " = \"" + d2.childNodes[i].nodeValue + "\"");
+	}
+	
+	var d3 = document.getElementById("div3");
+	console.log("d3 has " + d3.childNodes.length + " children");
+	for (var i = 0; i < d3.childNodes.length; i++) {
+		console.log("\t " + d3.childNodes[i].nodeName + " = \"" + d3.childNodes[i].nodeValue + "\"");
+	}
+	
+	var d4 = document.getElementById("div4");
+	console.log("d4 has " + d4.childNodes.length + " children");
+	for (var i = 0; i < d4.childNodes.length; i++) {
+		console.log("\t " + d4.childNodes[i].nodeName + " = \"" + d4.childNodes[i].nodeValue + "\"");
+		d4.childNodes[i].appendData("Hello2");
+	}
+	
+	var d5 = document.getElementById("div5");
+	console.log("d5 has " + d5.childNodes.length + " children");
+	for (var i = 0; i < d5.childNodes.length; i++) {
+		console.log("\t " + d5.childNodes[i].nodeName + " = \"" + d5.childNodes[i].nodeValue + "\"");
+	}
+	
+	var s1 = document.getElementById("script1");
+	console.log("s1 has " + s1.childNodes.length + " children");
+	for (var i = 0; i < s1.childNodes.length; i++) {
+		console.log("\t " + s1.childNodes[i].nodeName + " = \"" + s1.childNodes[i].nodeValue + "\"");
+		document.getElementById("div6").innerHTML += (s1.childNodes[i].nodeValue + "\n");
+	}
+	
+	var script = document.createElement("script");
+	script.type = "text/javascript";
+	script.text = "document.getElementById(\"div7\").innerHTML = \"this is appended by new script\"";
+	document.body.appendChild(script);
+	
+	document.getElementById("div8").innerHTML = "Init has " + document.getElementsByTagName("div").length + " div node";
+	var ds = document.getElementsByTagName("div");
+	for (var i = 0; i < 4; i++) {
+		var dx = document.createElement("div");
+		document.body.appendChild(dx);
+	}
+	document.getElementById("div9").innerHTML = "End has " + ds.length + " div node";
+}
+</script>
+</html>

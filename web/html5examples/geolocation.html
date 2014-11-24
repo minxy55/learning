@@ -1,0 +1,53 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>WebSocket/Geolocation Demo</title>
+</head>
+
+<body onload="onLoad()">
+<div>I tested in chromum browser, please keep your pc on internet</div>
+<div id="support_geolocation"></div>
+
+<pre><strong>Geolocation Information:</strong></pre>
+<pre id="location"></pre>
+
+<script type="text/javascript">
+var w = null;
+var g = null;
+
+function handleLocationMessage(position)
+{
+	console.log("handleLocationMessage");
+	
+	var latitude = position.coords.latitude;
+	var longitude = position.coords.longitude;
+	var timestamp = position.timestamp;
+	
+	console.log("new Location: " + latitude + "," + longitude);
+	document.getElementById("location").innerHTML += "Location: " + latitude + "," +  longitude + " update at: " + timestamp + "\n";
+}
+
+function handleLocationError(err)
+{
+	console.log("" + err.code + "," + err.message);
+}
+
+function onLoad()
+{	
+	if (navigator.geolocation) {
+		g = navigator.geolocation;
+		document.getElementById("support_geolocation").innerHTML = "HTML5 Geolocation is supported in your browser";
+	} else {
+		document.getElementById("support_geolocation").innerHTML = "HTML5 Geolocation is not supported in your browser";
+		return;
+	}
+	
+	g.getCurrentPosition(handleLocationMessage, handleLocationError, {timeout: 1000});
+	g.watchPosition(handleLocationMessage, handleLocationError, {maximumAge: 1000, timeout: 1000});
+	
+	console.log("loading...");
+}
+</script>
+</body>
+</html>

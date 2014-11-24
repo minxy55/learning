@@ -31,7 +31,7 @@ function onLoad()
 		var it = document.getElementById("support").innerHTML = "HTML5 WetSocket is not supported in your browser";
 	}
 	
-	var url = "ws://192.168.1.102:8088/echo";
+	var url = "ws://192.168.1.102:8123";
 	w = new WebSocket(url);
 	
 	w.onopen = function() {

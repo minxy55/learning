@@ -1,0 +1,111 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Web Video/Audio Example</title>
+</head>
+
+<body onload="onLoad()">
+<style type="text/css">
+	#toggle {
+		position:absolute;
+		left: 30px;
+		top: 100px;
+	}
+	#div2 {
+		position:absolute;
+		left: 30px;
+		top: 160px;
+		width: 300px;
+		height: 20px;
+		background-color:#033;
+		border-top-left-radius:8px;
+		border-top-right-radius:8px;
+		border-bottom-right-radius:8px;
+		border-bottom-left-radius:8px;
+		z-index:1;
+	}
+	#div3 {
+		position:absolute;
+		left: 30px;
+		top: 160px;
+		width: 0px;
+		height: 20px;
+		background-color:#930;
+		border-top-left-radius:8px;
+		border-top-right-radius:8px;
+		border-bottom-right-radius:8px;
+		border-bottom-left-radius:8px;
+		z-index:2;
+	}
+</style>
+
+<p>
+<div id="support"></div>
+
+</p>
+<audio id="music" src="">
+</audio>
+
+<input type="file" id="file" />
+<button id="toggle" onclick="toggle()">Play</button>
+<div class="progress" id="div2"></div>
+<div class="progress" id="div3"></div>
+
+<script type="text/javascript">
+
+var time_id = null;
+var paused = true;
+
+function toggle()
+{
+	var m = document.getElementById("music");
+	
+	m.play(false);
+}
+
+function bind()
+{	
+	var m = document.getElementById("music");
+	
+	m.onpause = function() {
+		clearInterval(time_id);
+	}
+	
+	m.onplay = function() {
+		var file = document.getElementById("file");
+		var filename = file.files[0];
+		
+		if (filename === null) {
+			alert("Invalid file name");
+			return;
+		}
+		document.getElementById("music").src = filename;
+		time_id = setInterval(updateProgress, 50);
+	}
+}
+
+function updateProgress()
+{
+	var m = document.getElementById("music");
+	
+	var currentTime = m.currentTime;
+	var durationTime = m.duration;
+	var width = parseInt(300 * currentTime / durationTime);
+	document.getElementById("div3").style.width = "" + width + "px";
+}
+
+function onLoad()
+{	
+	var hasAudio = !!document.createElement("audio").canPlayType;
+	if (hasAudio) {
+		var it = document.getElementById("support").innerHTML = "HTML5 Audio is supported in your browser";
+	} else {
+		var it = document.getElementById("support").innerHTML = "HTML5 Audio is not supported in your browser";
+	}
+	
+	bind();
+}
+</script>
+</body>
+</html>
